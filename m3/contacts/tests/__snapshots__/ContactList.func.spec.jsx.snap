@@ -1,0 +1,42 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ContactList Component should match snapshot (content) 1`] = `
+<div>
+  <div
+    class="list-group"
+  >
+    <button
+      class="list-group-item "
+      data-testid="button-ad324356-384a-4fa4-a1d9-e373b0f760d0"
+    >
+      Allison Clayton
+    </button>
+    <button
+      class="list-group-item "
+      data-testid="button-cbe348af-a5ae-47c2-8d2b-07441a773fb7"
+    >
+      David Jacobs
+    </button>
+    <button
+      class="list-group-item "
+      data-testid="button-4822e046-eee3-4d3a-b9be-f860f48ea5df"
+    >
+      Dominic Ramsey
+    </button>
+    <button
+      class="list-group-item "
+      data-testid="button-3d3a4d97-0bad-4ea7-93e0-e936dcc02928"
+    >
+      Victoria Clarke
+    </button>
+    <button
+      class="list-group-item "
+      data-testid="button-4bd7bd06-c5c5-428f-bde9-de07e59628e7"
+    >
+      Zoe M. Russell
+    </button>
+  </div>
+</div>
+`;
+
+exports[`ContactList Component should match snapshot (empty) 1`] = `<div />`;
