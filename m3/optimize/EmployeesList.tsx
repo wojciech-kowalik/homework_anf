@@ -1,14 +1,14 @@
-import React from 'react'
-import styled from 'styled-components';
+import React, { memo } from "react";
+import styled from "styled-components";
 
-import { Button, ButtonIcon, Typography, FormatMoney } from 'ui/atoms'
-import { ButtonList } from 'ui/molecules'
+import { Button, ButtonIcon, Typography, FormatMoney } from "ui/atoms";
+import { ButtonList } from "ui/molecules";
 
-import { Employee } from 'api/employees'
+import { Employee } from "api/employees";
 
 const colors = {
-  borderColor: 'rgba(0, 0, 0, .15)',
-}
+  borderColor: "rgba(0, 0, 0, .15)",
+};
 
 const EmployeeUl = styled.ul`
   margin: 0;
@@ -38,7 +38,7 @@ const EmployeeLi = styled.li`
 const EmployeeDetails = styled.div`
   grid-row: 2;
   grid-column: 1 / span 2;
-  font-size: .85rem;
+  font-size: 0.85rem;
   box-sizing: border-box;
 
   @media (min-width: 480px) {
@@ -57,7 +57,7 @@ const EmployeeDetails = styled.div`
       bottom: 0;
       right: 0;
       border-left: 2px solid ${colors.borderColor};
-      content: '';
+      content: "";
     }
   }
 `;
@@ -66,7 +66,7 @@ const EmployeeName = styled.strong`
   display: block;
   margin-bottom: 6px;
   font-size: 1rem;
-`
+`;
 
 const EmployeeSalary = styled.div`
   grid-row: 1;
@@ -94,7 +94,7 @@ const EmployeeSalary = styled.div`
 
 const EmployeeButtons = styled(ButtonList)`
   grid-row: 3;
-  grid-column: 1/span 2;
+  grid-column: 1 / span 2;
 
   && ${Button} {
     min-width: 0;
@@ -111,42 +111,55 @@ const EmployeeButtons = styled(ButtonList)`
 `;
 
 interface EmployeeListProps {
-  employees: Employee[]
-  onGiveRiseClick: (e: Employee) => void
-  onFireClick: (e: Employee) => void
+  employees: Employee[];
+  onGiveRiseClick: (e: Employee) => void;
+  onFireClick: (e: Employee) => void;
 }
 
-export const EmployeeList: React.FC<EmployeeListProps> = ({
-  employees, onGiveRiseClick, onFireClick
-}) => {
+const EmployeeList: React.FC<EmployeeListProps> = memo(
+  ({ employees, onGiveRiseClick, onFireClick }) => {
+    return (
+      <>
+        <Typography variant="h2">Pracownicy</Typography>
+        <EmployeeUl>
+          {employees.map((employee) => (
+            <EmployeeLi key={employee.id}>
+              <EmployeeDetails>
+                <EmployeeName>
+                  {employee.firstName} {employee.lastName}
+                </EmployeeName>
+                {employee.title}
+                {employee.skills?.length > 0 && (
+                  <em>{" (" + employee.skills.join(", ") + ")"}</em>
+                )}
+              </EmployeeDetails>
 
-  return <>
-    <Typography variant="h2">Pracownicy</Typography>
-    <EmployeeUl>
-      {employees.map((employee) => (
-        <EmployeeLi key={employee.id}>
-          <EmployeeDetails>
-            <EmployeeName>{employee.firstName} {employee.lastName}</EmployeeName>
-            {employee.title}
-            {employee.skills?.length > 0 && (
-              <em>{' (' + employee.skills.join(', ') + ')'}</em>
-            )}
-          </EmployeeDetails>
+              <EmployeeSalary>
+                <FormatMoney amount={employee.salary} />
+              </EmployeeSalary>
 
-          <EmployeeSalary>
-            <FormatMoney amount={employee.salary} />
-          </EmployeeSalary>
+              <EmployeeButtons>
+                <Button
+                  variant="OUTLINED"
+                  onClick={() => onGiveRiseClick(employee)}
+                >
+                  <ButtonIcon>⬆︎</ButtonIcon> Daj podwyżkę
+                </Button>
+                <Button
+                  variant="OUTLINED"
+                  onClick={() => onFireClick(employee)}
+                >
+                  <ButtonIcon>∅</ButtonIcon> Zwolnij
+                </Button>
+              </EmployeeButtons>
+            </EmployeeLi>
+          ))}
+        </EmployeeUl>
+      </>
+    );
+  }
+);
 
-          <EmployeeButtons>
-            <Button variant="OUTLINED" onClick={() => onGiveRiseClick(employee)}>
-              <ButtonIcon>⬆︎</ButtonIcon> Daj podwyżkę
-            </Button>
-            <Button variant="OUTLINED" onClick={() => onFireClick(employee)}>
-              <ButtonIcon>∅</ButtonIcon> Zwolnij
-            </Button>
-          </EmployeeButtons>
-        </EmployeeLi>
-      ))}
-    </EmployeeUl>
-  </>;
-}
+EmployeeList.displayName = "EmployeeList";
+
+export { EmployeeList };
