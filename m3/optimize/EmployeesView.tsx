@@ -59,17 +59,29 @@ export const EmployeesView: React.FC<EmployeesViewProps> = () => {
     getEmployees().then((response) => setEmployees(response));
   }, []);
 
-  const onFire = (e: Employee) => {
+  // const onFire = (e: Employee) => {
+  //   deleteEmployee(e.id)
+  //     .then(() => getEmployees())
+  //     .then((response) => setEmployees(response));
+  // };
+
+  // const onGiveRise = (e: Employee) => {
+  //   updateEmployee({ ...e, salary: e.salary + 100 })
+  //     .then(() => getEmployees())
+  //     .then((response) => setEmployees(response));
+  // };
+
+  const onFire = useCallback((e: Employee) => {
     deleteEmployee(e.id)
       .then(() => getEmployees())
       .then((response) => setEmployees(response));
-  };
+  }, []);
 
-  const onGiveRise = (e: Employee) => {
+  const onGiveRise = useCallback((e: Employee) => {
     updateEmployee({ ...e, salary: e.salary + 100 })
       .then(() => getEmployees())
       .then((response) => setEmployees(response));
-  };
+  }, []);
 
   const [displaySalarySummaries, setDisplaySalarySummaries] = useState(true);
 

@@ -118,6 +118,7 @@ interface EmployeeListProps {
 
 const EmployeeList: React.FC<EmployeeListProps> = memo(
   ({ employees, onGiveRiseClick, onFireClick }) => {
+    console.log('rendered')
     return (
       <>
         <Typography variant="h2">Pracownicy</Typography>
