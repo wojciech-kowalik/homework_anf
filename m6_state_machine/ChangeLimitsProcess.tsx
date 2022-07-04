@@ -9,7 +9,7 @@ import {
 
 import { Loader } from "ui/atoms";
 import { useMachine } from "@xstate/react";
-import { ChangeLimitsMachine } from "./machine/ChangeLimitMachine";
+import { ChangeLimitsMachine } from "./machine/ChangeLimitsMachine";
 
 interface ChangeLimitsProcessProps {
   onSuccess: () => void;
